@@ -8,6 +8,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.FileProvider
@@ -18,6 +19,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     var currentImagePath: String? = null
+    lateinit var diceImage : ImageView
     val IMAGE_REQUEST: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,12 +27,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val rollButton = findViewById<Button>(R.id.rollButton)
-        val resultsTextView = findViewById<TextView>(R.id.resultsTextView)
+        diceImage = findViewById<ImageView>(R.id.imageView)
         val seekBar = findViewById<SeekBar>(R.id.seekBar)
 
         rollButton.setOnClickListener {
             val rand = Random().nextInt(seekBar.progress)
-            resultsTextView.text = rand.toString()
+            val drawableResource = when (rand) {
+                1 -> R.drawable.dice_1
+                2 -> R.drawable.dice_2
+                3 -> R.drawable.dice_3
+                4 -> R.drawable.dice_4
+                5 -> R.drawable.dice_5
+                else -> R.drawable.dice_6
+            }
+            diceImage.setImageResource(drawableResource)
         }
     }
 
