@@ -19,6 +19,7 @@ class CameraPreview(context: Context, mCamera: Camera) : SurfaceView(context), S
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         try {
+            //Set up the parameters for our camera preview. Mostly needs to be refactored a bit
             var parameters : Camera.Parameters = mCamera.getParameters()
             parameters.set("orientation", "portrait")
             mCamera.setParameters(parameters)

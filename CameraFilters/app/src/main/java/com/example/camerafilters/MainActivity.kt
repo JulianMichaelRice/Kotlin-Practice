@@ -16,7 +16,6 @@ import android.widget.ImageView
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     var mCamera : Camera? = null
     lateinit var horizontalScrollView : HorizontalScrollView
-    val PERMISSION_CONSTANT = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +41,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initialize() {
+        //Grab our camera and the camera preview class
         mCamera = getCameraInstance();
         var mPreview : CameraPreview = CameraPreview(this, mCamera!!)
         var r1CamPreviewFrame : FrameLayout = findViewById(R.id.r1CameraPreview)
+
+        //If we have a reference to the ID, set the camera preview to the frame layout
         if (r1CamPreviewFrame != null) {
             r1CamPreviewFrame.addView(mPreview)
         } else {
@@ -53,6 +55,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun getCameraInstance(): Camera {
+        //This function opens the camera. It's deprecated so I will adjust the code with ref. to below:
+        //https://androidpedia.net/en/tutorial/619/camera-2-api "Preview the main camera in a TextureView"
         var c : Camera? = null
 
         try {
@@ -67,6 +71,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
+        //When we click the cancel button (ivFilter), it should toggle the horizontal scrollbar
         when (v.id) {
             R.id.ivFilter -> {
                 if (horizontalScrollView.visibility == View.VISIBLE) {
@@ -81,6 +86,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     fun colorEffectFilter(v: View) {
         if (mCamera != null) {
             var parameters: Camera.Parameters = mCamera!!.getParameters()
+            //Depending on the clicked effect, the filter should change. DEPRECATED! >:(
             when (v.id) {
                 R.id.ivEffectNone -> {
                     parameters.setColorEffect(Camera.Parameters.EFFECT_NONE)
