@@ -37,7 +37,7 @@ class TitleFragment : Fragment() {
 
         //Causes action to happen when play button is pressed, referencing nav controller
         binding.playButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+            view.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
         }
         setHasOptionsMenu(true)
         return binding.root
